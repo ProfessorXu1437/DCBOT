@@ -3,21 +3,18 @@ from discord.ext import commands
 import requests
 import zipfile
 import io
-from flask import Flask
-import threading
+from dotenv import load_dotenv
+import os
 
-app = Flask('')
+# 加载 .env 文件中的环境变量
+load_dotenv()
 
-@app.route('/')
-def home():
-    return "Hello. I am alive!"
+# 获取 Discord 令牌
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
-def run():
-    app.run(host='0.0.0.0', port=8080)
+if DISCORD_TOKEN is None:
+    raise ValueError("No Discord token found. Please set it in the .env file.")
 
-def keep_alive():
-    t = threading.Thread(target=run)
-    t.start()
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -125,5 +122,4 @@ async def on_message(message):
 async def start(ctx):
     await ctx.send("请私信我 '注册' 或 '获取list' 来选择一个选项。")
 
-keep_alive()
-bot.run('MTI1MzI2NDMxMzg4MDI4NTI4NA.GfOOMm.3RygEWbX5-AhFat_DjE11oHmJGPQa9g6vWx0VE')
+bot.run(DISCORD_TOKEN)
