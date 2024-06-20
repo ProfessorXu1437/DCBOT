@@ -5,6 +5,14 @@ import zipfile
 import io
 from dotenv import load_dotenv
 import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running", 200
+
 
 # 加载 .env 文件中的环境变量
 load_dotenv()
@@ -122,4 +130,11 @@ async def on_message(message):
 async def start(ctx):
     await ctx.send("请私信我 '注册' 或 '获取list' 来选择一个选项。")
 
-bot.run(DISCORD_TOKEN)
+def run_bot():
+    bot.run(DISCORD_TOKEN)
+    
+if __name__ == "__main__":
+    import threading
+    bot_thread = threading.Thread(target=run_bot)
+    bot_thread.start()
+    app.run(host='0.0.0.0', port=5000)
