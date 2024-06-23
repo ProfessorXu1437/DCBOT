@@ -48,8 +48,9 @@ def request_list(username):
 
 def generate_strong_password(length=16):
 
-    characters = string.ascii_letters + string.digits + string.punctuation
-    
+    safe_punctuation = "!#$%&()*+,-./:;<=>?@[]^_{|}~"
+
+    characters = string.ascii_letters + string.digits + safe_punctuation
 
     password = [
         random.choice(string.ascii_letters),
