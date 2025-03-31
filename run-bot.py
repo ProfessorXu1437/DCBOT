@@ -48,7 +48,7 @@ def request_list(username):
 
 def generate_strong_password(length=16):
 
-    safe_punctuation = "!#$%&()*+,-./:;<=>?@[]^_{|}~"
+    safe_punctuation = "!#$%&()*+,-.:;<=>?@[]^_{|}~"
 
     characters = string.ascii_letters + string.digits + safe_punctuation
 
